@@ -16,7 +16,7 @@ public static class Extensions
         services.AddDbContext<T>(x =>
         {
             x.UseSqlServer(connectionString);
-            // x.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
+            x.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
         
         using var serviceProvider = services.BuildServiceProvider();
