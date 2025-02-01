@@ -24,6 +24,8 @@ public class ProjectsEfContext : DbContext
             x.Property(c => c.Description);
             x.Property(c => c.BaseLanguage).IsRequired();
             x.Property(c => c.Owner).IsRequired();
+            
+            x.HasIndex(c => c.Owner);
         });
     }
 }

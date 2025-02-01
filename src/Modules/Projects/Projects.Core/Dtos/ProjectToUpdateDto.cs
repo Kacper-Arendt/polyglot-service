@@ -10,7 +10,4 @@ public class ProjectToUpdateDto
 
     [StringLength(300)]
     public string Description { get; set; }
-    
-    [Required]
-    public Guid BaseLanguage { get; set; }
 }

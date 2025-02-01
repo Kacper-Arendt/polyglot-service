@@ -1,0 +1,23 @@
+### Register
+POST {{API_URL}}/api/Auth/register
+Content-Type: application/json
+
+{
+  "email": "test2@test.com",
+  "password": "Test123!"
+}
+
+### Login
+POST {{API_URL}}/api/auth/login?
+    useCookies=false&useSessionCookies=false
+Content-Type: application/json
+
+{
+  "email": "test2@test.com",
+  "password": "Test123!"
+}
+
+> {% client.global.set("access_token", response.body.accessToken); %}
+
+<> 2025-02-01T204636.200.json
+<> 2025-02-01T200808.200.json

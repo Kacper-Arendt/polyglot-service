@@ -1,11 +1,9 @@
-using Shared.Abstractions.ValueObjects;
-
 namespace Projects.Core.Dtos;
 
 public record ProjectToReadDto(
-    ProjectId Id,
+    Guid Id,
     string Name,
     string Description,
-    LanguageId BaseLanguage,
-    OwnerId Owner
+    Guid BaseLanguage,
+    Guid Owner
 );

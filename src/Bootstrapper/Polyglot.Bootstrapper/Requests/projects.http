@@ -1,0 +1,45 @@
+###
+@projectId= 7227dd66-f0f6-434d-90a2-584af346a24f
+POST {{API_URL}}/api/projects
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "ssss",
+  "description": "zxczczczc",
+  "baseLanguage": "0ece9af0-6547-4702-870f-a30c35b02f0e"
+}
+
+### 
+GET {{API_URL}}/api/projects
+Authorization: Bearer {{access_token}}
+
+### 
+GET {{API_URL}}/api/projects/{{projectId}}
+Authorization: Bearer {{access_token}}
+
+
+### 
+PUT {{API_URL}}/api/projects/{{projectId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "string2",
+  "description": "string123",
+  "baseLanguage": "0ece9af0-6547-4702-870f-a30c35b02f0e"
+}
+
+### 
+PUT {{API_URL}}/api/projects/{{projectId}}/base-language
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "languageId": "0ece9af0-6547-4702-870f-a30c35b02f0e"
+}
+
+### 
+DELETE {{API_URL}}/api/budgets/{{budgetId}}/expenses/0ece9af0-6547-4702-870f-a30c35b02f0e
+Authorization: Bearer {{access_token}}
+

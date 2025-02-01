@@ -9,7 +9,7 @@ namespace Projects.Core;
 
 public static class Extensions
 {
-    public static IServiceCollection AddPeriodsCore(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddProjectsCore(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectService, ProjectService>();

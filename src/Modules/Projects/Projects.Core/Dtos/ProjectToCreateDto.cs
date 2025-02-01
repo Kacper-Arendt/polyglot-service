@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Shared.Abstractions.ValueObjects;
+using Shared.Infrastructure.Attributes;
 
 namespace Projects.Core.Dtos;
 
@@ -13,5 +13,6 @@ public class ProjectToCreateDto
     public string Description { get; set; }
     
     [Required]
-    public LanguageId BaseLanguage { get; set; }
+    [ValidGuid]
+    public Guid BaseLanguage { get; set; }
 }

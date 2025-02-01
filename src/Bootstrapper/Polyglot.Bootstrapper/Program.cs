@@ -1,4 +1,5 @@
 using Polyglot.Bootstrapper.DI;
+using Projects.Api.Controllers;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,6 @@ builder.Services.AddOpenApi();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.RegisterModules();
-builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
@@ -44,8 +44,8 @@ else
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseModules();
 app.UseRouting();
+app.UseModules();
 app.MapControllers();
 
 app.Run();

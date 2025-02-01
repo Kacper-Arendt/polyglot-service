@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Projects.Core.Database;
 using Projects.Core.Entities;
 using Projects.Core.Exceptions;
-using Shared.Abstractions.ValueObjects;
 
 namespace Projects.Core.Repositories;
 
@@ -15,20 +14,20 @@ public class ProjectRepository : IProjectRepository
         _context = context;
     }
 
-    public async Task<Project?> GetByAsync(OwnerId ownerId, ProjectId id)
+    public async Task<Project?> GetByAsync(Guid ownerId, Guid id)
     {
         return await _context.Projects
             .FirstOrDefaultAsync(p => p.Id == id && p.Owner == ownerId);
     }
 
-    public async Task<IEnumerable<Project>> GetAllAsync(OwnerId ownerId)
+    public async Task<IEnumerable<Project>> GetAllAsync(Guid ownerId)
     {
         return await _context.Projects
             .Where(p => p.Owner == ownerId)
             .ToListAsync();
     }
 
-    public async Task<ProjectId> CreateAsync(Project project)
+    public async Task<Guid> CreateAsync(Project project)
     {
         var entityEntry = await _context.Projects.AddAsync(project);
         await _context.SaveChangesAsync();
@@ -41,7 +40,7 @@ public class ProjectRepository : IProjectRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(ProjectId id)
+    public async Task DeleteAsync(Guid id)
     {
         var project = await _context.Projects.FindAsync(id);
         if (project is null)
