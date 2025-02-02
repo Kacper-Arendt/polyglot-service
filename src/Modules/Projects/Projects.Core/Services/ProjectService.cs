@@ -38,10 +38,10 @@ public class ProjectService : IProjectService
         );
     }
 
-    public async Task<IEnumerable<ProjectToReadDto>> GetAllAsync()
+    public async Task<IEnumerable<ProjectToReadDto>> GetAllAsync(string? searchName)
     {
         var ownerId = _httpContextHelper.GetCurrentUserId();
-        var projects = await _projectRepository.GetAllAsync(ownerId);
+        var projects = await _projectRepository.GetAllAsync(ownerId, searchName);
         return projects.Select(p => new ProjectToReadDto(
             p.Id,
             p.Name,

@@ -5,13 +5,13 @@ Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-  "name": "ssss",
+  "name": "text",
   "description": "zxczczczc",
   "baseLanguage": "0ece9af0-6547-4702-870f-a30c35b02f0e"
 }
 
 ### 
-GET {{API_URL}}/api/projects
+GET {{API_URL}}/api/projects?name=text
 Authorization: Bearer {{access_token}}
 
 ### 

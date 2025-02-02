@@ -20,10 +20,12 @@ public class ProjectRepository : IProjectRepository
             .FirstOrDefaultAsync(p => p.Id == id && p.Owner == ownerId);
     }
 
-    public async Task<IEnumerable<Project>> GetAllAsync(Guid ownerId)
+    public async Task<IEnumerable<Project>> GetAllAsync(Guid ownerId, string? searchName)
     {
         return await _context.Projects
-            .Where(p => p.Owner == ownerId)
+            .AsNoTracking()
+            .Where(p => p.Owner == ownerId && (searchName == null || p.Name.Contains(searchName)))
+            .OrderBy(p => p.Name)
             .ToListAsync();
     }
 
