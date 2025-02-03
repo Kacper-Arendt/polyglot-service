@@ -12,7 +12,7 @@ public static class Extensions
         return builder;
     }
 
-    public static WebApplication UseProjectsModule(this WebApplication app)
+    public static WebApplication UseLanguagesModule(this WebApplication app)
     {
         return app;
     }

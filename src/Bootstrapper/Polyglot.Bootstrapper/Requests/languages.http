@@ -1,0 +1,35 @@
+###
+@languageId= 4921c695-dfef-40c3-8562-1d68a73aef88
+@projectId= 7227dd66-f0f6-434d-90a2-584af346a24f
+POST {{API_URL}}/api/projects/{{projectId}}/languages
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "English",
+  "code": "en",
+  "projectId": "{{projectId}}"
+}
+
+### 
+GET {{API_URL}}/api/projects/{{projectId}}/languages
+Authorization: Bearer {{access_token}}
+
+### 
+GET {{API_URL}}/api/projects/{{projectId}}/languages/{{languageId}}
+Authorization: Bearer {{access_token}}
+
+### 
+PUT {{API_URL}}/api/projects/{{projectId}}/languages/{{languageId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "English Updated",
+  "code": "en",
+  "projectId": "{{projectId}}"
+}
+
+### 
+DELETE {{API_URL}}/api/projects/{{projectId}}/languages/{{languageId}}
+Authorization: Bearer {{access_token}}

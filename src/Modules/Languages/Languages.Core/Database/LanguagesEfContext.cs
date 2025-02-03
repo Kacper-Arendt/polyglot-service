@@ -5,7 +5,11 @@ namespace Languages.Core.Database;
 
 public class LanguagesEfContext: DbContext
 {
-    public DbSet<Language> Languages { get; set; } 
+    public DbSet<Language> Languages { get; set; }
+    
+    public LanguagesEfContext(DbContextOptions<LanguagesEfContext> options) : base(options)
+    {
+    }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
