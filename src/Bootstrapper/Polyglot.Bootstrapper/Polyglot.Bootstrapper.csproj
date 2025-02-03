@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\Languages\Langauges.Api\Langauges.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Languages\Languages.Api\Languages.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Projects\Projects.Api\Projects.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Translations\Translations.Api\Translations.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Users\Users.Api\Users.Api.csproj" />

@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{F64C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Languages", "Languages", "{8C5B710E-3020-4439-B0CB-6F02B6D57732}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langauges.Api", "src\Modules\Languages\Langauges.Api\Langauges.Api.csproj", "{3D446ACC-0C12-4252-A917-FEFFC8E7E7C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Languages.Api", "src\Modules\Languages\Languages.Api\Languages.Api.csproj", "{3D446ACC-0C12-4252-A917-FEFFC8E7E7C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langauges.Core", "src\Modules\Languages\Langauges.Core\Langauges.Core.csproj", "{CB5BB7A6-9A4B-43B1-B7B4-325D652C8CC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Languages.Core", "src\Modules\Languages\Languages.Core\Languages.Core.csproj", "{CB5BB7A6-9A4B-43B1-B7B4-325D652C8CC5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projects", "Projects", "{B7FACFCB-5A4D-4ECA-BF5C-806818FF9502}"
 EndProject
