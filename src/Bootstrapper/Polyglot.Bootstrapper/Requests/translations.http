@@ -1,0 +1,32 @@
+###
+@translationKeyId= 320afd54-1813-4a7b-9053-2c635ae6c06b
+@projectId= 7227dd66-f0f6-434d-90a2-584af346a24f
+POST {{API_URL}}/api/projects/{{projectId}}/translations/keys
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Greeting 21355",
+  "projectId": "{{projectId}}"
+}
+
+###
+GET {{API_URL}}/api/projects/{{projectId}}/translations/keys
+Authorization: Bearer {{access_token}}
+
+###
+GET {{API_URL}}/api/projects/{{projectId}}/translations/keys/{{translationKeyId}}
+Authorization: Bearer {{access_token}}
+
+###
+PUT {{API_URL}}/api/projects/{{projectId}}/translations/keys/{{translationKeyId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Greeting Updated"
+}
+
+###
+DELETE {{API_URL}}/api/projects/{{projectId}}/translations/keys/{{translationKeyId}}
+Authorization: Bearer {{access_token}}
