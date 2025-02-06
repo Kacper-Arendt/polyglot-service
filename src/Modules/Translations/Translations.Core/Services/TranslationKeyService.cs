@@ -17,6 +17,12 @@ public class TranslationKeyService : ITranslationKeyService
     public async Task<TranslationKeyToRead> GetByAsync(Guid id)
     {
         var translationKey = await _translationKeyRepository.GetByIdAsync(id);
+        
+        if (translationKey is null)
+        {
+            throw new TranslationKeyNotFoundException(id);
+        }
+        
         var translationKeyToRead = new TranslationKeyToRead(translationKey.Id, translationKey.Name);
         return translationKeyToRead;
     }
