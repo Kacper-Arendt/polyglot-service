@@ -9,13 +9,31 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Testcontainers" Version="4.1.0" />
+    <PackageReference Include="Testcontainers.MsSql" Version="4.1.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bootstrapper\Polyglot.Bootstrapper\Polyglot.Bootstrapper.csproj" />
+    <ProjectReference Include="..\..\Modules\Languages\Languages.Api\Languages.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Languages\Languages.Core\Languages.Core.csproj" />
+    <ProjectReference Include="..\..\Modules\Projects\Projects.Api\Projects.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Projects\Projects.Core\Projects.Core.csproj" />
+    <ProjectReference Include="..\..\Modules\Translations\Translations.Api\Translations.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Translations\Translations.Core\Translations.Core.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\Users.Api\Users.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\Users.Core\Users.Core.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Abstractions\Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
