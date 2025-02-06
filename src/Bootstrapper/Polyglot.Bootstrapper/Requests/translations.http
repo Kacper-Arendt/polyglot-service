@@ -1,6 +1,6 @@
 ###
 @translationKeyId= 7a202c5b-4755-40ba-a417-f4fd63a2c550
-@projectId= 7227dd66-f0f6-434d-90a2-584af346a24f
+@projectId= a87b37c3-28ac-4039-b3fc-700d919cf755
 @translationTextId= 14f5a4c1-11e5-49f2-aa2b-15a6fe83425a
 POST {{API_URL}}/api/projects/{{projectId}}/translations/keys
 Authorization: Bearer {{access_token}}

@@ -1,5 +1,5 @@
 ###
-@projectId= 7227dd66-f0f6-434d-90a2-584af346a24f
+@projectId= a87b37c3-28ac-4039-b3fc-700d919cf755
 POST {{API_URL}}/api/projects
 Authorization: Bearer {{access_token}}
 Content-Type: application/json
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### 
-GET {{API_URL}}/api/projects?name=text
+GET {{API_URL}}/api/projects
 Authorization: Bearer {{access_token}}
 
 ### 
@@ -25,9 +25,9 @@ Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-  "name": "string2",
-  "description": "string123",
-  "baseLanguage": "0ece9af0-6547-4702-870f-a30c35b02f0e"
+  "name": "Nowy projekt",
+  "description": "Najważniejszy projekt",
+  "baseLanguage": "ef8aa70a-7241-436d-a3ab-831d990f9d61"
 }
 
 ### 
