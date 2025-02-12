@@ -1,5 +1,5 @@
-using System.Net.Http.Json;
-using Languages.Core.Dtos;
+using Polyglot.Tests.e2e.Helpers;
+using Polyglot.Tests.e2e.Helpers.Factories;
 using Polyglot.Tests.e2e.Setup;
 
 namespace Polyglot.Tests.e2e.Languages;
@@ -13,20 +13,15 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
     {
         // Arrange
         var projectId = Guid.NewGuid();
-        var languageToSetDto = new LanguageToSetDto
-        {
-            Code = "TEST_CODE",
-            Name = "TEST_LANGUAGE",
-            ProjectId = projectId
-        };
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .WithName("TEST_LANGUAGE")
+            .WithCode("TEST_CODE")
+            .Build();
 
         // Act
-        var response = await _client.PostAsJsonAsync($"/api/projects/{projectId}/languages", languageToSetDto);
+        var response = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
-        // Assert
-        response.EnsureSuccessStatusCode();
-        var createdLanguageId = await response.Content.ReadFromJsonAsync<Guid>();
-        Assert.NotEqual(Guid.Empty, createdLanguageId);
+        Assert.NotEqual(Guid.Empty, response);
     }
 
     [Fact]
@@ -36,13 +31,31 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
         var projectId = Guid.NewGuid();
 
         // Act
-        var response = await _client.GetAsync($"/api/projects/{projectId}/languages");
-        response.EnsureSuccessStatusCode();
-        var allLanguages = await response.Content.ReadFromJsonAsync<IEnumerable<LanguageToReadDto>>();
+        var response = await LanguageHelper.GetAllLanguagesAsync(_client, projectId);
 
         // Assert
-        Assert.NotNull(allLanguages);
-        Assert.Empty(allLanguages);
+        Assert.NotNull(response);
+        Assert.Empty(response);
+    }
+
+    [Fact]
+    public async Task GetAllLangs_ShouldReturnLanguages()
+    {
+        // Arrange
+        var projectId = Guid.NewGuid();
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .WithName("TEST_LANGUAGE")
+            .WithCode("TEST_CODE")
+            .Build();
+        var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
+
+        // Act
+        var response = await LanguageHelper.GetAllLanguagesAsync(_client, projectId);
+
+        // Assert
+        Assert.NotNull(response);
+        Assert.NotEmpty(response);
+        Assert.Contains(response, l => l.Id == createdLanguageId);
     }
 
     [Fact]
@@ -50,21 +63,14 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
     {
         // Arrange
         var projectId = Guid.NewGuid();
-        var languageToSetDto = new LanguageToSetDto
-        {
-            Code = "TEST_CODE",
-            Name = "TEST_LANGUAGE",
-            ProjectId = projectId
-        };
-
-        var createResponse = await _client.PostAsJsonAsync($"/api/projects/{projectId}/languages", languageToSetDto);
-        createResponse.EnsureSuccessStatusCode();
-        var createdLanguageId = await createResponse.Content.ReadFromJsonAsync<Guid>();
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .WithName("TEST_LANGUAGE")
+            .WithCode("TEST_CODE")
+            .Build();
+        var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
         // Act
-        var response = await _client.GetAsync($"/api/projects/{projectId}/languages/{createdLanguageId}");
-        response.EnsureSuccessStatusCode();
-        var retrievedLanguage = await response.Content.ReadFromJsonAsync<LanguageToReadDto>();
+        var retrievedLanguage = await LanguageHelper.GetLanguageByIdAsync(_client, projectId, createdLanguageId);
 
         // Assert
         Assert.NotNull(retrievedLanguage);
@@ -72,35 +78,26 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
         Assert.Equal(languageToSetDto.Code, retrievedLanguage.Code);
     }
 
-    [Fact (Skip = "failed")]
+    [Fact(Skip = "Failed")]
     public async Task UpdateLang_ShouldModifyExistingLanguage()
     {
         // Arrange
         var projectId = Guid.NewGuid();
-        var initialLanguage = new LanguageToSetDto
-        {
-            Code = "TEST_CODE",
-            Name = "TEST_LANGUAGE",
-            ProjectId = projectId
-        };
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .WithName("TEST_LANGUAGE")
+            .WithCode("TEST_CODE")
+            .Build();
 
-        var createResponse = await _client.PostAsJsonAsync($"/api/projects/{projectId}/languages", initialLanguage);
-        createResponse.EnsureSuccessStatusCode();
-        var createdLanguageId = await createResponse.Content.ReadFromJsonAsync<Guid>();
+        var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
-        var updatedLanguage = new LanguageToSetDto
-        {
-            Code = "UPDATED_CODE",
-            Name = "UPDATED_LANGUAGE",
-            ProjectId = projectId
-        };
+        var updatedLanguage = new LanguageToSetBuilder(projectId)
+            .WithName("UPDATED_LANGUAGE")
+            .WithCode("UPDATED_CODE")
+            .Build();
 
         // Act
-        var updateResponse = await _client.PutAsJsonAsync($"/api/projects/{projectId}/languages/{createdLanguageId}", updatedLanguage);
-        updateResponse.EnsureSuccessStatusCode();
-
-        var getResponse = await _client.GetAsync($"/api/projects/{projectId}/languages/{createdLanguageId}");
-        var retrievedLanguage = await getResponse.Content.ReadFromJsonAsync<LanguageToReadDto>();
+        await LanguageHelper.UpdateLanguageAsync(_client, projectId, createdLanguageId, updatedLanguage);
+        var retrievedLanguage = await LanguageHelper.GetLanguageByIdAsync(_client, projectId, createdLanguageId);
 
         // Assert
         Assert.NotNull(retrievedLanguage);
@@ -113,24 +110,19 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
     {
         // Arrange
         var projectId = Guid.NewGuid();
-        var languageToSetDto = new LanguageToSetDto
-        {
-            Code = "DELETE_ME",
-            Name = "DELETE_ME",
-            ProjectId = projectId
-        };
 
-        var createResponse = await _client.PostAsJsonAsync($"/api/projects/{projectId}/languages", languageToSetDto);
-        createResponse.EnsureSuccessStatusCode();
-        var createdLanguageId = await createResponse.Content.ReadFromJsonAsync<Guid>();
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .WithName("TEST_LANGUAGE")
+            .WithCode("TEST_CODE")
+            .Build();
+
+        var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
         // Act
-        var deleteResponse = await _client.DeleteAsync($"/api/projects/{projectId}/languages/{createdLanguageId}");
-        deleteResponse.EnsureSuccessStatusCode();
-
-        var getResponse = await _client.GetAsync($"/api/projects/{projectId}/languages/{createdLanguageId}");
+        await LanguageHelper.DeleteLanguageAsync(_client, projectId, createdLanguageId);
+        var retrievedLanguage = await LanguageHelper.GetLanguageByIdAsync(_client, projectId, createdLanguageId);
 
         // Assert
-        Assert.Equal(System.Net.HttpStatusCode.BadRequest, getResponse.StatusCode);
+        Assert.Equal(Guid.Empty, retrievedLanguage?.Id);
     }
 }

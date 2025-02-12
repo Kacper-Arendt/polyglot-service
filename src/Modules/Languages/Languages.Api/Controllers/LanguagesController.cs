@@ -36,7 +36,7 @@ public class LanguagesController : ControllerBase
         return Ok(id);
     }
     
-    [HttpPut("{id}")]
+    [HttpPatch("{id}")]
     public async Task<IActionResult> UpdateAsync(Guid id, LanguageToSetDto language)
     {
         await _languagesService.UpdateAsync(id, language);
