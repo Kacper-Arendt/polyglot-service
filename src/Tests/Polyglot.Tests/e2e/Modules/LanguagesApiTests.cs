@@ -2,7 +2,7 @@ using Polyglot.Tests.e2e.Helpers;
 using Polyglot.Tests.e2e.Helpers.Factories;
 using Polyglot.Tests.e2e.Setup;
 
-namespace Polyglot.Tests.e2e.Languages;
+namespace Polyglot.Tests.e2e.Modules;
 
 public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<DatabaseFixture>
 {
