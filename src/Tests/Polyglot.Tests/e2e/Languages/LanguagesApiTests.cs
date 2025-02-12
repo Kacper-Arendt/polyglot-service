@@ -14,8 +14,6 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
         // Arrange
         var projectId = Guid.NewGuid();
         var languageToSetDto = new LanguageToSetBuilder(projectId)
-            .WithName("TEST_LANGUAGE")
-            .WithCode("TEST_CODE")
             .Build();
 
         // Act
@@ -43,10 +41,7 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
     {
         // Arrange
         var projectId = Guid.NewGuid();
-        var languageToSetDto = new LanguageToSetBuilder(projectId)
-            .WithName("TEST_LANGUAGE")
-            .WithCode("TEST_CODE")
-            .Build();
+        var languageToSetDto = new LanguageToSetBuilder(projectId).Build();
         var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
         // Act
@@ -64,8 +59,6 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
         // Arrange
         var projectId = Guid.NewGuid();
         var languageToSetDto = new LanguageToSetBuilder(projectId)
-            .WithName("TEST_LANGUAGE")
-            .WithCode("TEST_CODE")
             .Build();
         var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
@@ -84,8 +77,6 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
         // Arrange
         var projectId = Guid.NewGuid();
         var languageToSetDto = new LanguageToSetBuilder(projectId)
-            .WithName("TEST_LANGUAGE")
-            .WithCode("TEST_CODE")
             .Build();
 
         var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
@@ -111,10 +102,7 @@ public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<Database
         // Arrange
         var projectId = Guid.NewGuid();
 
-        var languageToSetDto = new LanguageToSetBuilder(projectId)
-            .WithName("TEST_LANGUAGE")
-            .WithCode("TEST_CODE")
-            .Build();
+        var languageToSetDto = new LanguageToSetBuilder(projectId).Build();
 
         var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
