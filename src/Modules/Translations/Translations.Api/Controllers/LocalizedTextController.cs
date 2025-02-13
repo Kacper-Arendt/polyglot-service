@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Translations.Core.Dtos;
 using Translations.Core.Services;
 
 namespace Translations.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/projects/{projectId}/translations/keys/{translationKeyId}/texts")]
 public class LocalizedTextController: ControllerBase

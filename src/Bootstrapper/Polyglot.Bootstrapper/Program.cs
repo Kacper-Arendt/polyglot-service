@@ -41,10 +41,10 @@ else
     app.UseHttpsRedirection();
 }
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseRouting();
 app.UseModules();
 app.MapControllers();
 

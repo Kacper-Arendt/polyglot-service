@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Projects.Core.Dtos;
 using Projects.Core.Services;
 
 namespace Projects.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/projects")]
 public class ProjectsController : ControllerBase

@@ -1,3 +1,7 @@
+### Me
+GET {{API_URL}}/api/Users/Auth/Me
+Authorization: Bearer {{access_token}}
+
 ### Register
 POST {{API_URL}}/api/Auth/register
 Content-Type: application/json

@@ -1,9 +1,11 @@
 using Languages.Core.Dtos;
 using Languages.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Languages.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/projects/{projectId}/languages")]
 public class LanguagesController : ControllerBase
