@@ -17,6 +17,24 @@ public static class AuthHelper
         var response = await client.PostAsJsonAsync($"/api/Auth/Login", loginUserDto);
         return await response.Content.ReadFromJsonAsync<LoginResponseDto>();
     }
+
+    public static async Task<LoginResponseDto> AuthenticateAsync(HttpClient client)
+    {
+        var registerUserDto = new RegisterUserDto(
+            Guid.NewGuid() + "@example.com",
+            Guid.NewGuid() + "123!@#!@#asdAAA");
+
+        await RegisterAsync(client, registerUserDto);
+
+        var loginUserDto = new LoginUserDto
+        {
+            Email = registerUserDto.Email,
+            Password = registerUserDto.Password
+        };
+
+        var loginResponse = await LoginAsync(client, loginUserDto);
+        return loginResponse;
+    }
 }
 
 public class LoginResponseDto

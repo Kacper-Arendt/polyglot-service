@@ -1,12 +1,20 @@
+using System.Net.Http.Headers;
 using Polyglot.Tests.e2e.Helpers;
 using Polyglot.Tests.e2e.Helpers.Factories;
 using Polyglot.Tests.e2e.Setup;
 
 namespace Polyglot.Tests.e2e.Modules;
 
-public class LanguagesApiTests(DatabaseFixture fixture) : IClassFixture<DatabaseFixture>
+public class LanguagesApiTests : IClassFixture<DatabaseFixture>
 {
-    private readonly HttpClient _client = fixture.CreateClient();
+    private readonly HttpClient _client;
+
+    public LanguagesApiTests(DatabaseFixture fixture)
+    {
+        _client = fixture.CreateClient();
+        _client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", AuthHelper.AuthenticateAsync(_client).Result.AccessToken);
+    }
 
     [Fact]
     public async Task CreateLang_ShouldReturnNewLanguageId()
