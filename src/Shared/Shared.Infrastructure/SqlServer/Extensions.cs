@@ -21,8 +21,9 @@ public static class Extensions
         
         using var serviceProvider = services.BuildServiceProvider();
         var context = serviceProvider.GetRequiredService<T>();
-        context.Database.Migrate();
-
+  
+        if (context.Database.CanConnect()) context.Database.Migrate();
+        
         return services;
     }
 }
