@@ -12,7 +12,6 @@ public class ProjectToSetBuilder
         _project = new Faker<ProjectToCreateDto>()
             .RuleFor(p => p.Name, f => f.Random.Word())
             .RuleFor(p => p.Description, f => f.Lorem.Sentence())
-            .RuleFor(p => p.BaseLanguage, f => f.Random.Guid())
             .Generate();
     }
 
@@ -25,12 +24,6 @@ public class ProjectToSetBuilder
     public ProjectToSetBuilder WithDescription(string description)
     {
         _project.Description = description;
-        return this;
-    }
-
-    public ProjectToSetBuilder WithBaseLanguage(Guid baseLanguage)
-    {
-        _project.BaseLanguage = baseLanguage;
         return this;
     }
 

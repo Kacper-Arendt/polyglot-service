@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projects.Core.Database;
 
@@ -11,9 +12,11 @@ using Projects.Core.Database;
 namespace Projects.Core.Migrations
 {
     [DbContext(typeof(ProjectsEfContext))]
-    partial class ProjectsEfContextModelSnapshot : ModelSnapshot
+    [Migration("20250214132623_Base_Lang_Nullable")]
+    partial class Base_Lang_Nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -60,7 +60,6 @@ public class ProjectService : IProjectService
             projectId,
             project.Name,
             project.Description,
-            project.BaseLanguage,
             ownerId
         );
 

@@ -11,8 +11,4 @@ public class ProjectToCreateDto
 
     [StringLength(300)]
     public string Description { get; set; }
-    
-    [Required]
-    [ValidGuid]
-    public Guid BaseLanguage { get; set; }
 }

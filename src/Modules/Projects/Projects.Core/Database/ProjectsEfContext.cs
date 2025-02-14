@@ -22,7 +22,7 @@ public class ProjectsEfContext : DbContext
             x.HasKey(c => c.Id);
             x.Property(c => c.Name).IsRequired();
             x.Property(c => c.Description);
-            x.Property(c => c.BaseLanguage).IsRequired();
+            x.Property(c => c.BaseLanguage);
             x.Property(c => c.Owner).IsRequired();
             
             x.HasIndex(c => c.Owner);

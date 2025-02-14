@@ -4,6 +4,6 @@ public record ProjectToReadDto(
     Guid Id,
     string Name,
     string Description,
-    Guid BaseLanguage,
+    Guid? BaseLanguage,
     Guid Owner
 );
