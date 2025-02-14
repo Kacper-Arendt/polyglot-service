@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using Languages.Core.Dtos;
 using Polyglot.Tests.e2e.Helpers;
 using Polyglot.Tests.e2e.Helpers.Factories;
 using Polyglot.Tests.e2e.Setup;
@@ -119,6 +120,6 @@ public class LanguagesApiTests : IClassFixture<DatabaseFixture>
         var retrievedLanguage = await LanguageHelper.GetLanguageByIdAsync(_client, projectId, createdLanguageId);
 
         // Assert
-        Assert.Equal(Guid.Empty, retrievedLanguage?.Id);
+        Assert.Null(retrievedLanguage);
     }
 }

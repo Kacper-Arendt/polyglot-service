@@ -14,7 +14,7 @@ public static class ProjectHelper
     public static async Task<ProjectToReadDto?> GetProjectByIdAsync(HttpClient client, Guid projectId)
     {
         var response = await client.GetAsync($"/api/projects/{projectId}");
-        return await response.Content.ReadFromJsonAsync<ProjectToReadDto>();
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<ProjectToReadDto>() : null;
     }
 
     public static async Task<IEnumerable<ProjectToReadDto>> GetAllProjectsAsync(HttpClient client)

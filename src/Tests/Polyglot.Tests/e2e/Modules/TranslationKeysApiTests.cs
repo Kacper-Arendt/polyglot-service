@@ -111,6 +111,6 @@ public class TranslationKeysApiTests : IClassFixture<DatabaseFixture>
         var retrievedTranslationKey = await TranslationHelper.GetTranslationKeyByIdAsync(_client, projectId, createdTranslationKeyId);
 
         // Assert
-        Assert.Equal(Guid.Empty, retrievedTranslationKey?.Id);
+        Assert.Null(retrievedTranslationKey);
     }
 }

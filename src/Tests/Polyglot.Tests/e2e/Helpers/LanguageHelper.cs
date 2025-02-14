@@ -16,12 +16,13 @@ public static class LanguageHelper
         Guid languageId)
     {
         var response = await client.GetAsync($"/api/projects/{projectId}/languages/{languageId}");
-        return await response.Content.ReadFromJsonAsync<LanguageToReadDto>();
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<LanguageToReadDto>() : null;
     }
 
-    public static async Task<IEnumerable<LanguageToReadDto>> GetAllLanguagesAsync(HttpClient client, Guid projectId)
+    public static async Task<IEnumerable<LanguageToReadDto>?> GetAllLanguagesAsync(HttpClient client, Guid projectId)
     {
         var response = await client.GetAsync($"/api/projects/{projectId}/languages");
+
         return await response.Content.ReadFromJsonAsync<IEnumerable<LanguageToReadDto>>();
     }
 

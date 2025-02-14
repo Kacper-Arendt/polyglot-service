@@ -15,7 +15,7 @@ public static class TranslationHelper
     public static async Task<TranslationKeyToRead?> GetTranslationKeyByIdAsync(HttpClient client, Guid projectId, Guid translationKeyId)
     {
         var response = await client.GetAsync($"/api/projects/{projectId}/translations/keys/{translationKeyId}");
-        return await response.Content.ReadFromJsonAsync<TranslationKeyToRead>();
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<TranslationKeyToRead>() : null;
     }
 
     public static async Task<IEnumerable<TranslationKeyToRead>> GetAllTranslationKeysAsync(HttpClient client, Guid projectId)

@@ -14,7 +14,7 @@ public static class LocalizedTextHelper
     public static async Task<LocalizedTextToRead?> GetLocalizedTextByIdAsync(HttpClient client, Guid projectId, Guid translationKeyId, Guid localizedTextId)
     {
         var response = await client.GetAsync($"/api/projects/{projectId}/translations/keys/{translationKeyId}/texts/{localizedTextId}");
-        return await response.Content.ReadFromJsonAsync<LocalizedTextToRead>();
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<LocalizedTextToRead>() : null;
     }
 
     public static async Task<IEnumerable<LocalizedTextToRead>> GetAllLocalizedTextsAsync(HttpClient client, Guid projectId, Guid translationKeyId)

@@ -117,6 +117,6 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
         var retrievedLocalizedText = await LocalizedTextHelper.GetLocalizedTextByIdAsync(_client, projectId, translationKeyId, createdLocalizedTextId);
 
         // Assert
-        Assert.Equal(Guid.Empty, retrievedLocalizedText.Id);
+        Assert.Null(retrievedLocalizedText);
     }
 }

@@ -102,6 +102,6 @@ public class ProjectsApiTests : IClassFixture<DatabaseFixture>
         var retrievedProject = await ProjectHelper.GetProjectByIdAsync(_client, createdProjectId);
 
         // Assert
-        Assert.Equal(Guid.Empty, retrievedProject?.Id);
+        Assert.Null(retrievedProject);
     }
 }
