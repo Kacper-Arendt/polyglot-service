@@ -1,8 +1,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Projects.Core.Database;
+using Projects.Core.Events.Handlers;
 using Projects.Core.Repositories;
 using Projects.Core.Services;
+using Shared.Abstractions.Events;
 using Shared.Infrastructure.SqlServer;
 
 namespace Projects.Core;
@@ -13,6 +15,8 @@ public static class Extensions
     {
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectService, ProjectService>();
+        
+        services.AddScoped<IEventHandler<LanguageCreatedEvent>, LanguageCreatedEventHandler>();
         
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddSqlServerWithEfCore<ProjectsEfContext>(connectionString);

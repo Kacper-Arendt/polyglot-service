@@ -3,6 +3,7 @@ using Languages.Core.Repositories;
 using Languages.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Abstractions.Events;
 using Shared.Infrastructure.SqlServer;
 
 namespace Languages.Core;

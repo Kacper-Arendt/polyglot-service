@@ -2,16 +2,19 @@ using Languages.Core.Dtos;
 using Languages.Core.Entities;
 using Languages.Core.Exceptions;
 using Languages.Core.Repositories;
+using Shared.Abstractions.Events;
 
 namespace Languages.Core.Services;
 
 public class LanguagesService : ILanguagesService
 {
     private readonly ILanguagesRepository _languagesRepository;
+    private readonly IEventPublisher _eventPublisher;
 
-    public LanguagesService(ILanguagesRepository languagesRepository)
+    public LanguagesService(ILanguagesRepository languagesRepository, IEventPublisher eventPublisher)
     {
         _languagesRepository = languagesRepository;
+        _eventPublisher = eventPublisher;
     }
 
     public async Task<LanguageToReadDto> GetByAsync(Guid id)
@@ -42,6 +45,10 @@ public class LanguagesService : ILanguagesService
             language.ProjectId
         );
         await _languagesRepository.AddAsync(languageToSet);
+        
+        var projectExistsEvent = new LanguageCreatedEvent(languageToSet.Id, language.ProjectId, language.Name, language.Code);
+        await _eventPublisher.PublishAsync(projectExistsEvent);
+        
         return languageToSet.Id;
     }
 
