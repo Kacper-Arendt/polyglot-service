@@ -7,7 +7,6 @@ namespace Projects.Core.Events.Handlers
         public async Task HandleAsync(LanguageCreatedEvent @event)
         {
             Console.WriteLine($"Project received language created event: {@event.Name} {@event.OccurredOn}");
-            var x = @event;
             await Task.CompletedTask;
         }
     }
