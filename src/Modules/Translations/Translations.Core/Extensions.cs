@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Abstractions.Events;
 using Shared.Infrastructure.SqlServer;
 using Translations.Core.Database;
+using Translations.Core.Events.Handlers;
 using Translations.Core.Repositories;
 using Translations.Core.Services;
 
@@ -18,6 +20,8 @@ public static class Extensions
         
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddSqlServerWithEfCore<TranslationsEfContext>(connectionString);
+        
+        services.AddScoped<IEventHandler<LanguageCreatedEvent>, LanguageCreatedEventHandler>();
 
         return services;
     } 

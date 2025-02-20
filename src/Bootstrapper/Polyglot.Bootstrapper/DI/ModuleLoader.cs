@@ -4,6 +4,7 @@ using Shared.Infrastructure;
 using Users.Api;
 using Languages.Api;
 using Languages.Api.Controllers;
+using Shared.Infrastructure.Events;
 using Translations.Api;
 using Translations.Api.Controllers;
 
@@ -33,7 +34,9 @@ public static class ModuleLoader
         app.UseProjectsModule();
         app.UseLanguagesModule();
         app.UseTranslationsModule();
-
+        
+                    // var eventSubscriber = app.Services.GetRequiredService<EventSubscriber>();
+                    // eventSubscriber.StartAsync().GetAwaiter().GetResult();
         return app;
     }
 }

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Abstractions.Events;
+using Shared.Infrastructure.Events;
 using Shared.Infrastructure.Exceptions;
 using Shared.Infrastructure.Helpers;
 
@@ -12,11 +14,17 @@ public static class Extensions
         services.AddSingleton<ErrorHandlerMiddleware>();
         services.AddSingleton<HttpContextHelper>();
         
+        services.AddSingleton<IEventPublisher, EventPublisher>();
+        services.AddHostedService<EventListener>();
+        
         return services;
     }    
     
-    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
+    public static WebApplication UseInfrastructure(this WebApplication app)
     {
+        // var eventSubscriber = app.Services.GetRequiredService<EventSubscriber>();
+        // eventSubscriber.StartAsync().GetAwaiter().GetResult();
+        
         app.UseMiddleware<ErrorHandlerMiddleware>();
 
         return app;

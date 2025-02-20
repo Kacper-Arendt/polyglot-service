@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Polyglot.Bootstrapper.DI;
 using Projects.Api.Controllers;
 using Scalar.AspNetCore;
@@ -8,6 +9,18 @@ builder.Services.AddOpenApi();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.RegisterModules();
+
+var environment = Environment.GetEnvironmentVariable("ENVIRONMENT");
+var jsonFile = $"appsettings.{environment}.json";
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false,reloadOnChange: true)
+    .AddJsonFile(jsonFile, optional: true);
+
+var keyVaultUrl = builder.Configuration["KeyVault"];
+
+var credentials = new DefaultAzureCredential ();
+builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), credentials);
 
 builder.Services.AddCors(options =>
 {
