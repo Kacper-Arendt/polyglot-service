@@ -6,8 +6,7 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'budget-linux'
+pool: 'budget-linux'
 
 variables:
   solution: '**/*.sln'
