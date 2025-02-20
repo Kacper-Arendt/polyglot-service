@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'budget-linux'
 
 variables:
   solution: '**/*.sln'
