@@ -10,11 +10,13 @@ public class LocalizedTextService : ILocalizedTextService
 {
     private readonly ILocalizedTextRepository _localizedTextRepository;
     private readonly ILanguagesModuleApi _languagesModuleApi;
+    private readonly ITranslationKeyService _translationKeyService;
 
-    public LocalizedTextService(ILocalizedTextRepository localizedTextRepository, ILanguagesModuleApi languagesModuleApi)
+    public LocalizedTextService(ILocalizedTextRepository localizedTextRepository, ILanguagesModuleApi languagesModuleApi, ITranslationKeyService translationKeyService)
     {
         _localizedTextRepository = localizedTextRepository;
         _languagesModuleApi = languagesModuleApi;
+        _translationKeyService = translationKeyService;
     }
 
     public async Task<LocalizedTextToRead> GetByAsync(Guid id)
@@ -49,6 +51,13 @@ public class LocalizedTextService : ILocalizedTextService
 
     public async Task<Guid> CreateAsync(LocalizedTextToSet localizedText)
     {
+        var translationKeyExists = await _translationKeyService.ExistsAsync(localizedText.TranslationKeyId);
+
+        if (!translationKeyExists)
+        {
+            throw new TranslationKeyNotFoundException(localizedText.TranslationKeyId);
+        }
+
         var languageExists = await _languagesModuleApi.ExistsAsync(localizedText.LanguageId);
         
         if (!languageExists)

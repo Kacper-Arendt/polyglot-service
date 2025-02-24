@@ -53,4 +53,9 @@ public class TranslationKeyRepository: ITranslationKeyRepository
         _context.TranslationsKeys.Remove(translationKey);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> ExistsAsync(Guid id)
+    {
+        return await _context.TranslationsKeys.AnyAsync(x => x.Id == id);
+    }
 }

@@ -26,7 +26,9 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
             .Build();
         var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
         
-        var translationKeyId = Guid.NewGuid();
+        var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
+        var translationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
+
         var localizedTextToSetDto = new LocalizedTextToSetBuilder(languageId, translationKeyId).Build();
 
         // Act
@@ -55,9 +57,10 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task GetAllLocalizedTexts_ShouldReturnLocalizedTexts()
     {
         // Arrange
-        var translationKeyId = Guid.NewGuid();
         var projectToSetDto = new ProjectToSetBuilder().Build();
         var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
+        var translationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId)
             .Build();
         var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
@@ -77,9 +80,10 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task GetLocalizedTextById_ShouldReturnCorrectLocalizedText()
     {
         // Arrange
-        var translationKeyId = Guid.NewGuid();
         var projectToSetDto = new ProjectToSetBuilder().Build();
         var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
+        var translationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId)
             .Build();
         var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
@@ -98,9 +102,10 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task UpdateLocalizedText_ShouldModifyExistingLocalizedText()
     {
         // Arrange
-        var translationKeyId = Guid.NewGuid();
         var projectToSetDto = new ProjectToSetBuilder().Build();
         var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
+        var translationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId)
             .Build();
         var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
@@ -124,9 +129,10 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task DeleteLocalizedText_ShouldRemoveLocalizedText()
     {
         // Arrange
-        var translationKeyId = Guid.NewGuid();
         var projectToSetDto = new ProjectToSetBuilder().Build();
         var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
+        var translationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId)
             .Build();
         var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);

@@ -9,4 +9,5 @@ public interface ITranslationKeyService
   Task<Guid> CreateAsync(TranslationKeyToSet translationKey);
   Task UpdateAsync(Guid id, TranslationKeyToUpdate translationKey);
   Task DeleteAsync(Guid id);
+  Task<bool> ExistsAsync(Guid id);
 }
