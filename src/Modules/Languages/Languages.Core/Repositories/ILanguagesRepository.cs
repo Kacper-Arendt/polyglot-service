@@ -9,4 +9,5 @@ public interface ILanguagesRepository
     Task AddAsync(Language language);
     Task UpdateAsync(Language language);
     Task DeleteAsync(Guid id);
+    Task<bool> ExistsAsync(Guid id);
 }

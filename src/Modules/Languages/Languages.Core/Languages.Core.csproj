@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\..\Shared\Shared.Abstractions\Shared.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Shared\Shared.Infrastructure\Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Projects\Projects.Shared\Projects.Shared.csproj" />
+    <ProjectReference Include="..\Languages.Shared\Languages.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,3 +1,4 @@
+using Languages.Shared;
 using Translations.Core.Dtos;
 using Translations.Core.Entities;
 using Translations.Core.Exceptions;
@@ -8,10 +9,12 @@ namespace Translations.Core.Services;
 public class LocalizedTextService : ILocalizedTextService
 {
     private readonly ILocalizedTextRepository _localizedTextRepository;
+    private readonly ILanguagesModuleApi _languagesModuleApi;
 
-    public LocalizedTextService(ILocalizedTextRepository localizedTextRepository)
+    public LocalizedTextService(ILocalizedTextRepository localizedTextRepository, ILanguagesModuleApi languagesModuleApi)
     {
         _localizedTextRepository = localizedTextRepository;
+        _languagesModuleApi = languagesModuleApi;
     }
 
     public async Task<LocalizedTextToRead> GetByAsync(Guid id)
@@ -46,6 +49,13 @@ public class LocalizedTextService : ILocalizedTextService
 
     public async Task<Guid> CreateAsync(LocalizedTextToSet localizedText)
     {
+        var languageExists = await _languagesModuleApi.ExistsAsync(localizedText.LanguageId);
+        
+        if (!languageExists)
+        {
+            throw new LanguageNotFoundException(localizedText.LanguageId);
+        }
+        
         var localizedTextToCreate = LocalizedText.Create(
             localizedText.Value,
             localizedText.TranslationKeyId,

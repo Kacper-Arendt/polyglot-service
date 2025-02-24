@@ -52,4 +52,9 @@ public class LanguagesRepository : ILanguagesRepository
         _context.Languages.Remove(language);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> ExistsAsync(Guid id)
+    {
+        return await _context.Languages.AnyAsync(p => p.Id == id);
+    }
 }

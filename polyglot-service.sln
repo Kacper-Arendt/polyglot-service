@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projects.Shared", "src\Modu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.AccessControl", "src\Shared\Shared.AccessControl\Shared.AccessControl.csproj", "{7B4977B0-D848-4AB4-8B87-1D9C2026D811}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Languages.Shared", "src\Modules\Languages\Languages.Shared\Languages.Shared.csproj", "{5694C669-0E65-40EB-95B3-BE0D9C198F79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,10 @@ Global
 		{7B4977B0-D848-4AB4-8B87-1D9C2026D811}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B4977B0-D848-4AB4-8B87-1D9C2026D811}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B4977B0-D848-4AB4-8B87-1D9C2026D811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5694C669-0E65-40EB-95B3-BE0D9C198F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5694C669-0E65-40EB-95B3-BE0D9C198F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5694C669-0E65-40EB-95B3-BE0D9C198F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5694C669-0E65-40EB-95B3-BE0D9C198F79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F64C4119-8246-4CEF-8022-0F5683E22407} = {9D069E14-E1EF-4298-90FC-8B53F001E59F}
@@ -138,5 +144,6 @@ Global
 		{0B40AB12-F27B-46FD-8615-DE8B763778B7} = {E49665F4-7DDD-4FFF-8580-95D0F0488707}
 		{07253298-AA49-4CA9-967B-795C1D165553} = {B7FACFCB-5A4D-4ECA-BF5C-806818FF9502}
 		{7B4977B0-D848-4AB4-8B87-1D9C2026D811} = {FC77AB20-8E4F-423D-AAD9-894DA8E7F156}
+		{5694C669-0E65-40EB-95B3-BE0D9C198F79} = {8C5B710E-3020-4439-B0CB-6F02B6D57732}
 	EndGlobalSection
 EndGlobal

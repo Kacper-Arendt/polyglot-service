@@ -20,9 +20,14 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task CreateLocalizedText_ShouldReturnNewLocalizedTextId()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .Build();
+        var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
+        
         var translationKeyId = Guid.NewGuid();
-        var localizedTextToSetDto = new LocalizedTextToSetBuilder(projectId, translationKeyId).Build();
+        var localizedTextToSetDto = new LocalizedTextToSetBuilder(languageId, translationKeyId).Build();
 
         // Act
         var response = await LocalizedTextHelper.CreateLocalizedTextAsync(_client, projectId, translationKeyId, localizedTextToSetDto);
@@ -50,9 +55,13 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task GetAllLocalizedTexts_ShouldReturnLocalizedTexts()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
         var translationKeyId = Guid.NewGuid();
-        var localizedTextToSetDto = new LocalizedTextToSetBuilder(projectId, translationKeyId).Build();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .Build();
+        var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
+        var localizedTextToSetDto = new LocalizedTextToSetBuilder(languageId, translationKeyId).Build();
         var createdLocalizedTextId = await LocalizedTextHelper.CreateLocalizedTextAsync(_client, projectId, translationKeyId, localizedTextToSetDto);
 
         // Act
@@ -68,9 +77,13 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task GetLocalizedTextById_ShouldReturnCorrectLocalizedText()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
         var translationKeyId = Guid.NewGuid();
-        var localizedTextToSetDto = new LocalizedTextToSetBuilder(projectId, translationKeyId).Build();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .Build();
+        var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
+        var localizedTextToSetDto = new LocalizedTextToSetBuilder(languageId, translationKeyId).Build();
         var createdLocalizedTextId = await LocalizedTextHelper.CreateLocalizedTextAsync(_client, projectId, translationKeyId, localizedTextToSetDto);
 
         // Act
@@ -85,9 +98,13 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task UpdateLocalizedText_ShouldModifyExistingLocalizedText()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
         var translationKeyId = Guid.NewGuid();
-        var localizedTextToSetDto = new LocalizedTextToSetBuilder(projectId, translationKeyId).Build();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .Build();
+        var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
+        var localizedTextToSetDto = new LocalizedTextToSetBuilder(languageId, translationKeyId).Build();
         var createdLocalizedTextId = await LocalizedTextHelper.CreateLocalizedTextAsync(_client, projectId, translationKeyId, localizedTextToSetDto);
 
         var updatedLocalizedText = new LocalizedTextToUpdateBuilder()
@@ -107,9 +124,13 @@ public class LocalizedTextApiTests : IClassFixture<DatabaseFixture>
     public async Task DeleteLocalizedText_ShouldRemoveLocalizedText()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
         var translationKeyId = Guid.NewGuid();
-        var localizedTextToSetDto = new LocalizedTextToSetBuilder(projectId, translationKeyId).Build();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
+        var languageToSetDto = new LanguageToSetBuilder(projectId)
+            .Build();
+        var languageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
+        var localizedTextToSetDto = new LocalizedTextToSetBuilder(languageId, translationKeyId).Build();
         var createdLocalizedTextId = await LocalizedTextHelper.CreateLocalizedTextAsync(_client, projectId, translationKeyId, localizedTextToSetDto);
 
         // Act
