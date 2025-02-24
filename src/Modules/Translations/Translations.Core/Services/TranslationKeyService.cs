@@ -1,3 +1,4 @@
+using Projects.Shared;
 using Translations.Core.Dtos;
 using Translations.Core.Entities;
 using Translations.Core.Exceptions;
@@ -8,10 +9,12 @@ namespace Translations.Core.Services;
 public class TranslationKeyService : ITranslationKeyService
 {
     private readonly ITranslationKeyRepository _translationKeyRepository;
+    private readonly IProjectsModuleApi _projectsModuleApi;
 
-    public TranslationKeyService(ITranslationKeyRepository translationKeyRepository)
+    public TranslationKeyService(ITranslationKeyRepository translationKeyRepository, IProjectsModuleApi projectsModuleApi)
     {
         _translationKeyRepository = translationKeyRepository;
+        _projectsModuleApi = projectsModuleApi;
     }
 
     public async Task<TranslationKeyToRead> GetByAsync(Guid id)
@@ -36,6 +39,13 @@ public class TranslationKeyService : ITranslationKeyService
 
     public async Task<Guid> CreateAsync(TranslationKeyToSet translationKey)
     {
+        var projectExists = await _projectsModuleApi.ExistsAsync(translationKey.ProjectId);
+        
+        if (!projectExists)
+        {
+            throw new ProjectNotFoundException(translationKey.ProjectId);
+        }
+        
         var translationKeyToCreate = TranslationKey.Create(translationKey.Name, translationKey.ProjectId);
         return await _translationKeyRepository.CreateAsync(translationKeyToCreate);
     }

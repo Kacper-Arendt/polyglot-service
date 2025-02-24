@@ -21,7 +21,8 @@ public class LanguagesApiTests : IClassFixture<DatabaseFixture>
     public async Task CreateLang_ShouldReturnNewLanguageId()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId)
             .Build();
 
@@ -49,7 +50,8 @@ public class LanguagesApiTests : IClassFixture<DatabaseFixture>
     public async Task GetAllLangs_ShouldReturnLanguages()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId).Build();
         var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
 
@@ -66,7 +68,8 @@ public class LanguagesApiTests : IClassFixture<DatabaseFixture>
     public async Task GetById_ShouldReturnCorrectLanguage()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId)
             .Build();
         var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);
@@ -109,8 +112,8 @@ public class LanguagesApiTests : IClassFixture<DatabaseFixture>
     public async Task DeleteLang_ShouldRemoveLanguage()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
-
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var languageToSetDto = new LanguageToSetBuilder(projectId).Build();
 
         var createdLanguageId = await LanguageHelper.CreateLanguageAsync(_client, projectId, languageToSetDto);

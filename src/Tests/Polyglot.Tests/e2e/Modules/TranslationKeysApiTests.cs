@@ -20,7 +20,8 @@ public class TranslationKeysApiTests : IClassFixture<DatabaseFixture>
     public async Task CreateTranslationKey_ShouldReturnNewTranslationKeyId()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
 
         // Act
@@ -48,7 +49,8 @@ public class TranslationKeysApiTests : IClassFixture<DatabaseFixture>
     public async Task GetAllTranslationKeys_ShouldReturnTranslationKeys()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
         var createdTranslationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
 
@@ -65,7 +67,8 @@ public class TranslationKeysApiTests : IClassFixture<DatabaseFixture>
     public async Task GetTranslationKeyById_ShouldReturnCorrectTranslationKey()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
         var createdTranslationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
 
@@ -81,7 +84,8 @@ public class TranslationKeysApiTests : IClassFixture<DatabaseFixture>
     public async Task UpdateTranslationKey_ShouldModifyExistingTranslationKey()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
         var createdTranslationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
 
@@ -102,7 +106,8 @@ public class TranslationKeysApiTests : IClassFixture<DatabaseFixture>
     public async Task DeleteTranslationKey_ShouldRemoveTranslationKey()
     {
         // Arrange
-        var projectId = Guid.NewGuid();
+        var projectToSetDto = new ProjectToSetBuilder().Build();
+        var projectId = await ProjectHelper.CreateProjectAsync(_client, projectToSetDto);
         var translationKeyToSetDto = new TranslationKeyToSetBuilder(projectId).Build();
         var createdTranslationKeyId = await TranslationHelper.CreateTranslationKeyAsync(_client, projectId, translationKeyToSetDto);
 

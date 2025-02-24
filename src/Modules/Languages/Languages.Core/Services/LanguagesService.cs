@@ -13,14 +13,12 @@ public class LanguagesService : ILanguagesService
     private readonly ILanguagesRepository _languagesRepository;
     private readonly IEventPublisher _eventPublisher;
     private readonly IProjectsModuleApi _projectsModuleApi;
-    private readonly HttpContextHelper _httpContextHelper;
 
-    public LanguagesService(ILanguagesRepository languagesRepository, IEventPublisher eventPublisher, IProjectsModuleApi projectsModuleApi, HttpContextHelper httpContextHelper)
+    public LanguagesService(ILanguagesRepository languagesRepository, IEventPublisher eventPublisher, IProjectsModuleApi projectsModuleApi)
     {
         _languagesRepository = languagesRepository;
         _eventPublisher = eventPublisher;
         _projectsModuleApi = projectsModuleApi;
-        _httpContextHelper = httpContextHelper;
     }
 
     public async Task<LanguageToReadDto> GetByAsync(Guid id)
@@ -44,15 +42,12 @@ public class LanguagesService : ILanguagesService
 
     public async Task<Guid> CreateAsync(LanguageToSetDto language)
     {
-        var ownerId = _httpContextHelper.GetCurrentUserId();
         var projectExists = await _projectsModuleApi.ExistsAsync(language.ProjectId);
         
         if (!projectExists)
         {
             throw new ProjectNotFoundException(language.ProjectId);
         }
-        
-        
         
         var languageToSet = Language.Create(
             Guid.NewGuid(),
