@@ -4,7 +4,7 @@ using Shared.Infrastructure;
 using Users.Api;
 using Languages.Api;
 using Languages.Api.Controllers;
-using Shared.Infrastructure.Events;
+using Organizations.Api;
 using Translations.Api;
 using Translations.Api.Controllers;
 
@@ -15,6 +15,7 @@ public static class ModuleLoader
     public static WebApplicationBuilder RegisterModules(this WebApplicationBuilder builder) {
         builder.Services.AddInfrastructure();
         builder.RegisterUsersModule();
+        builder.RegisterOrganizationModule();
         builder.RegisterProjectsModule();
         builder.RegisterLanguagesModule();
         builder.RegisterTranslationsModule();
@@ -31,12 +32,11 @@ public static class ModuleLoader
     public static WebApplication UseModules(this WebApplication app) {
         app.UseInfrastructure();
         app.UseUsersModule();
+        app.UseOrganizationsModule();
         app.UseProjectsModule();
         app.UseLanguagesModule();
         app.UseTranslationsModule();
         
-                    // var eventSubscriber = app.Services.GetRequiredService<EventSubscriber>();
-                    // eventSubscriber.StartAsync().GetAwaiter().GetResult();
         return app;
     }
 }

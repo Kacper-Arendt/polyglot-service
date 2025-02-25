@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Languages\Languages.Api\Languages.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Organizations\Organizations.Api\Organizations.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Projects\Projects.Api\Projects.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Translations\Translations.Api\Translations.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Users\Users.Api\Users.Api.csproj" />
