@@ -5,7 +5,7 @@ namespace Organizations.Core.Database;
 
 public class OrganizationsEfContext : DbContext
 {
-    public DbSet<Organization?> Organizations { get; set; }
+    public DbSet<Organization> Organizations { get; set; }
     public DbSet<OrganizationMember> OrganizationMembers { get; set; }
 
     public OrganizationsEfContext(DbContextOptions<OrganizationsEfContext> options) : base(options)
@@ -31,6 +31,7 @@ public class OrganizationsEfContext : DbContext
             x.Property(c => c.OrganizationId).IsRequired();
             x.Property(c => c.UserId).IsRequired();
             x.Property(c => c.Role).IsRequired();
+            x.Property(c => c.Email).IsRequired();
             
             x.HasIndex(c => c.OrganizationId);
             x.HasIndex(c => c.UserId);

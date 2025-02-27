@@ -10,6 +10,6 @@ public interface IOrganizationService
     Task<IEnumerable<OrganizationDto>> GetAllAsync();
     Task<IEnumerable<OrganizationDto>> GetAllAsync(Guid userId);
     Task<OrganizationDto?> GetAsync(Guid id);
-    Task UpdateAsync(OrganizationToSetDto organization);
+    Task UpdateAsync(Guid id, OrganizationToSetDto organization);
     Task DeleteAsync(Guid id);
 }

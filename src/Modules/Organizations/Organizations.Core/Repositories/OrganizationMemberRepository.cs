@@ -14,9 +14,9 @@ public class OrganizationMemberRepository : IOrganizationMemberRepository
         _context = context;
     }
 
-    public async Task<bool> ExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid organizationId, Guid userId)
     {
-        return await _context.OrganizationMembers.AnyAsync(x => x.Id == id);
+        return await _context.OrganizationMembers.AnyAsync(x => x.OrganizationId == organizationId && x.UserId == userId);
     }
 
     public async Task AddAsync(OrganizationMember organizationMember)
@@ -33,9 +33,9 @@ public class OrganizationMemberRepository : IOrganizationMemberRepository
             .ToListAsync();
     }
 
-    public async Task<OrganizationMember?> GetAsync(Guid id)
+    public async Task<OrganizationMember?> GetAsync(Guid organizationId, Guid userId)
     {
-        return await _context.OrganizationMembers.FirstOrDefaultAsync(x => x.Id == id);
+        return await _context.OrganizationMembers.FirstOrDefaultAsync(x => x.OrganizationId == organizationId && x.UserId == userId);
     }
 
     public async Task UpdateAsync(OrganizationMember organizationMember)
