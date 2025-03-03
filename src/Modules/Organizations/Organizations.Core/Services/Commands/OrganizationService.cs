@@ -2,56 +2,41 @@ using Organizations.Core.Dtos;
 using Organizations.Core.Entities;
 using Organizations.Core.Exceptions;
 using Organizations.Core.Repositories;
+using Organizations.Shared;
+using Shared.Abstractions.Events;
+using Shared.Abstractions.Events.Organizations;
 using Shared.Infrastructure.Helpers;
 
-namespace Organizations.Core.Services;
+namespace Organizations.Core.Services.Commands;
 
-public class OrganizationService: IOrganizationService
+public class OrganizationCommandService: IOrganizationCommandService
 {
     private readonly IOrganizationRepository _organizationRepository;
-    private readonly OrganizationModuleApi _organizationModuleApi;
+    private readonly IOrganizationModuleApi _organizationModuleApi;
     private readonly HttpContextHelper _httpContextHelper;
+    private readonly IEventPublisher _eventPublisher;
 
-    public OrganizationService(
+    public OrganizationCommandService(
         IOrganizationRepository organizationRepository,
         HttpContextHelper httpContextHelper,
-        OrganizationModuleApi organizationModuleApi
-        )
+        IOrganizationModuleApi organizationModuleApi, 
+        IEventPublisher eventPublisher)
     {
         _organizationRepository = organizationRepository;
         _httpContextHelper = httpContextHelper;
         _organizationModuleApi = organizationModuleApi;
+        _eventPublisher = eventPublisher;
     }
     
-    public async Task<bool> ExistsAsync(Guid id)
-        => await _organizationRepository.ExistsAsync(id);
-
     public async Task AddAsync(OrganizationToSetDto organization)
     {
         var newOrganization = Organization.Create(Guid.NewGuid(), organization.Name);
         
         await _organizationRepository.AddAsync(newOrganization);
-    }
 
-    public async Task<IEnumerable<OrganizationDto>> GetAllAsync()
-    {
-        var organizations = await _organizationRepository.GetAllAsync();
-
-        return organizations.Select(organization => new OrganizationDto(organization.Id, organization.Name));
-    }
-
-    public async Task<IEnumerable<OrganizationDto>> GetAllAsync(Guid userId)
-    {
-        var organizations = await _organizationRepository.GetAllAsync(userId);
-
-        return organizations.Select(organization => new OrganizationDto(organization.Id, organization.Name));
-    }
-
-    public async Task<OrganizationDto?> GetAsync(Guid id)
-    {
-        var organization = await _organizationRepository.GetAsync(id);
-
-        return organization is null ? null : new OrganizationDto(organization.Id, organization.Name);
+        var userId = _httpContextHelper.GetCurrentUserId();
+        var organizationCreated = new OrganizationCreated(userId, newOrganization.Id, organization.Name);
+        await _eventPublisher.PublishAsync(organizationCreated);
     }
 
     public async Task UpdateAsync(Guid id, OrganizationToSetDto organization)
@@ -89,5 +74,8 @@ public class OrganizationService: IOrganizationService
         if (!canEdit) throw new UnauthorizedOrganizationOperationException(editorId);
         
         await _organizationRepository.DeleteAsync(id);
+        
+        var organizationDeleted = new OrganizationDeleted(editorId, id);
+        await _eventPublisher.PublishAsync(organizationDeleted);
     }
 }

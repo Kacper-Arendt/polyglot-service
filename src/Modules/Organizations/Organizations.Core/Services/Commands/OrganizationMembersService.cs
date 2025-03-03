@@ -2,19 +2,20 @@ using Organizations.Core.Dtos;
 using Organizations.Core.Entities;
 using Organizations.Core.Exceptions;
 using Organizations.Core.Repositories;
+using Organizations.Shared;
 using Shared.Infrastructure.Helpers;
 
-namespace Organizations.Core.Services;
+namespace Organizations.Core.Services.Commands;
 
-public class OrganizationMembersService : IOrganizationMembersService
+public class OrganizationMembersCommandService : IOrganizationMembersCommandService
 {
     private readonly IOrganizationMemberRepository _organizationMemberRepository;
-    private readonly OrganizationModuleApi _organizationModuleApi;
+    private readonly IOrganizationModuleApi _organizationModuleApi;
     private readonly HttpContextHelper _httpContextHelper;
 
-    public OrganizationMembersService(
+    public OrganizationMembersCommandService(
         IOrganizationMemberRepository organizationMemberRepository, 
-        OrganizationModuleApi organizationModuleApi,
+        IOrganizationModuleApi organizationModuleApi,
         HttpContextHelper httpContextHelper)
     {
         _organizationMemberRepository = organizationMemberRepository;
@@ -22,36 +23,9 @@ public class OrganizationMembersService : IOrganizationMembersService
         _httpContextHelper = httpContextHelper;
     }
     
-    public async Task<List<OrganizationMemberDto>> GetOrganizationMembersAsync(Guid organizationId)
-    {
-        var organizationMembers = await _organizationMemberRepository.GetAllAsync(organizationId);
-        
-        return organizationMembers.Select(organizationMember =>
-            new OrganizationMemberDto(
-                organizationMember.Id, 
-                organizationMember.OrganizationId, 
-                organizationMember.UserId, 
-                (int)organizationMember.Role)
-            )
-            .ToList();
-    }
-
-    public async Task<OrganizationMemberDto?> GetOrganizationMemberAsync(Guid organizationId, Guid userId)
-    {
-        var organizationMember = await _organizationMemberRepository.GetAsync(organizationId, userId);
-
-        return organizationMember is null
-            ? null
-            : new OrganizationMemberDto(
-                organizationMember.Id, 
-                organizationMember.OrganizationId, 
-                organizationMember.UserId, 
-                (int)organizationMember.Role);
-    }
-
     public async Task AddOrganizationMemberAsync(OrganizationMemberToSetDto organizationMember)
     {
-        var organizationExists = await _organizationModuleApi.OrganizationExistsAsync(organizationMember.OrganizationId);
+        var organizationExists = await _organizationModuleApi.ExistsAsync(organizationMember.OrganizationId);
         
         if (!organizationExists)
         {
@@ -86,7 +60,7 @@ public class OrganizationMembersService : IOrganizationMembersService
 
     public async Task DeleteOrganizationMemberAsync(Guid organizationId, Guid userId)
     {
-        var organizationExists = await _organizationModuleApi.OrganizationExistsAsync(organizationId);
+        var organizationExists = await _organizationModuleApi.ExistsAsync(organizationId);
         
         if (!organizationExists)
         {

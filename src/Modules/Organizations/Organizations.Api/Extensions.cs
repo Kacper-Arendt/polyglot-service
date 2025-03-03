@@ -7,7 +7,7 @@ public static class Extensions
 {
     public static WebApplicationBuilder RegisterOrganizationModule(this WebApplicationBuilder builder)
     {
-        builder.Services.AddOrgnizationsCore(builder.Configuration); 
+        builder.Services.AddOrganizationsCore(builder.Configuration); 
 
         return builder;
     }
