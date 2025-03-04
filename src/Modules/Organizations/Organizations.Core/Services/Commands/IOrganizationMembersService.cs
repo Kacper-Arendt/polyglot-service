@@ -6,4 +6,5 @@ public interface IOrganizationMembersCommandService
 {
     Task AddOrganizationMemberAsync(OrganizationMemberToSetDto organizationMember);
     Task DeleteOrganizationMemberAsync(Guid organizationId, Guid userId);
+    Task CreateOwnerAsync(Guid organizationId, Guid userId);
 }

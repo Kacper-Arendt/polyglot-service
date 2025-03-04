@@ -1,0 +1,34 @@
+###
+POST {{API_URL}}/api/organizations
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Organization 3"
+}
+
+### 
+@organizationId = deabcaf4-3c17-408b-876a-33096fee592e
+
+### 
+GET {{API_URL}}/api/organizations
+Authorization: Bearer {{access_token}}
+
+### 
+GET {{API_URL}}/api/organizations/{{organizationId}}
+Authorization: Bearer {{access_token}}
+
+
+### 
+PUT {{API_URL}}/api/organizations/{{organizationId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Organization 3 Updated"
+}
+
+### 
+DELETE {{API_URL}}/api/organizations/{{organizationId}}
+Authorization: Bearer {{access_token}}
+

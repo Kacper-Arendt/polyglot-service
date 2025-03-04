@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Organizations.Core.Database;
 
@@ -11,9 +12,11 @@ using Organizations.Core.Database;
 namespace Organizations.Core.Migrations
 {
     [DbContext(typeof(OrganizationsEfContext))]
-    partial class OrganizationsEfContextModelSnapshot : ModelSnapshot
+    [Migration("20250304161928_remove_email")]
+    partial class remove_email
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

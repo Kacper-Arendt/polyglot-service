@@ -15,20 +15,23 @@ public class OrganizationCommandService: IOrganizationCommandService
     private readonly IOrganizationModuleApi _organizationModuleApi;
     private readonly HttpContextHelper _httpContextHelper;
     private readonly IEventPublisher _eventPublisher;
+    private readonly IOrganizationMembersCommandService _organizationMembersCommandService;
 
     public OrganizationCommandService(
         IOrganizationRepository organizationRepository,
         HttpContextHelper httpContextHelper,
         IOrganizationModuleApi organizationModuleApi, 
-        IEventPublisher eventPublisher)
+        IEventPublisher eventPublisher,
+        IOrganizationMembersCommandService organizationMembersCommandService)
     {
         _organizationRepository = organizationRepository;
         _httpContextHelper = httpContextHelper;
         _organizationModuleApi = organizationModuleApi;
         _eventPublisher = eventPublisher;
+        _organizationMembersCommandService = organizationMembersCommandService;
     }
     
-    public async Task AddAsync(OrganizationToSetDto organization)
+    public async Task<Guid> AddAsync(OrganizationToSetDto organization)
     {
         var newOrganization = Organization.Create(Guid.NewGuid(), organization.Name);
         
@@ -37,6 +40,10 @@ public class OrganizationCommandService: IOrganizationCommandService
         var userId = _httpContextHelper.GetCurrentUserId();
         var organizationCreated = new OrganizationCreated(userId, newOrganization.Id, organization.Name);
         await _eventPublisher.PublishAsync(organizationCreated);
+        
+        await _organizationMembersCommandService.CreateOwnerAsync(newOrganization.Id, userId);
+        
+        return newOrganization.Id;
     }
 
     public async Task UpdateAsync(Guid id, OrganizationToSetDto organization)

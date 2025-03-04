@@ -6,21 +6,20 @@ public class OrganizationMember
     public Guid OrganizationId { get; private set; }
     public Guid UserId { get; private set; }
     public OrganizationRole Role { get; private set; }
-    public string Email { get; private set; }
 
-    private OrganizationMember(Guid organizationId, Guid userId, OrganizationRole role, string email)
+    private OrganizationMember(Guid organizationId, Guid userId, OrganizationRole role)
     {
         Id = Guid.NewGuid();
         OrganizationId = organizationId;
         UserId = userId;
         Role = role;
-        Email = email;
     }
 
-    public static OrganizationMember CreateMember(Guid organizationId, Guid userId, OrganizationRole role, string email) 
-        => new(organizationId, userId, role, email);
+    public static OrganizationMember CreateOwner(Guid organizationId, Guid userId) 
+        => new(organizationId, userId, OrganizationRole.Owner);
+    
+    public static OrganizationMember CreateMember(Guid organizationId, Guid userId, OrganizationRole role) 
+        => new(organizationId, userId, role);
     
     public void UpdateRole(OrganizationRole role) => Role = role;
-    
-    public void UpdateEmail(string email) => Email = email;
 }

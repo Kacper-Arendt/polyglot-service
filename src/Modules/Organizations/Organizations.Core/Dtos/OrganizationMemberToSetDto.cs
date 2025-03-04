@@ -11,10 +11,6 @@ public class OrganizationMemberToSetDto
     public Guid UserId { get; set; }
     
     [Required]
-    [MinLength(3)]
-    public string Email { get; set; }
-    
-    [Required]
     [ValidGuid]
     public Guid OrganizationId { get; set; }
 

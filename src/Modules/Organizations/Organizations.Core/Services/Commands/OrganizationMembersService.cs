@@ -51,8 +51,7 @@ public class OrganizationMembersCommandService : IOrganizationMembersCommandServ
         var newOrganizationMember = OrganizationMember.CreateMember(
             organizationMember.OrganizationId, 
             organizationMember.UserId, 
-            organizationMember.Role,
-            organizationMember.Email
+            organizationMember.Role
         );
         
         await _organizationMemberRepository.AddAsync(newOrganizationMember);
@@ -89,5 +88,19 @@ public class OrganizationMembersCommandService : IOrganizationMembersCommandServ
         }
         
         await _organizationMemberRepository.DeleteAsync(userId);
+    }
+
+    public async Task CreateOwnerAsync(Guid organizationId, Guid userId)
+    {
+        var organizationMemberExists = await _organizationMemberRepository.ExistsAsync(organizationId, userId);
+        
+        if (organizationMemberExists)
+        {
+            throw new OrganizationMemberExistsException(userId);
+        }
+        
+        var newOrganizationMember = OrganizationMember.CreateOwner(organizationId, userId);
+        
+        await _organizationMemberRepository.AddAsync(newOrganizationMember);   
     }
 }

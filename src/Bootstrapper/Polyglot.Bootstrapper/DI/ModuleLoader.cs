@@ -5,6 +5,7 @@ using Users.Api;
 using Languages.Api;
 using Languages.Api.Controllers;
 using Organizations.Api;
+using Organizations.Api.Controllers;
 using Translations.Api;
 using Translations.Api.Controllers;
 
@@ -22,6 +23,8 @@ public static class ModuleLoader
         
         builder.Services.AddControllers()
             .AddApplicationPart(typeof(ProjectsController).Assembly)
+            .AddApplicationPart(typeof(OrganizationQueryController).Assembly)
+            .AddApplicationPart(typeof(OrganizationCommandController).Assembly)
             .AddApplicationPart(typeof(LocalizedTextController).Assembly)
             .AddApplicationPart(typeof(TranslationKeyController).Assembly)
             .AddApplicationPart(typeof(LanguagesController).Assembly);
